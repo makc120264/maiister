@@ -39,7 +39,7 @@ const error = ref('');
 const loading = ref(false);
 
 const handleLogin = async () => {
-    loading.ref = true;
+    loading.value = true;
     error.value = '';
     try {
         await authStore.login(form.value.email, form.value.password);
