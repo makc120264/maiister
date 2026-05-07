@@ -4,8 +4,8 @@
 
 ## Технологічний стек
 - **Backend:** Laravel 12.
-- **Frontend:** Vue 3 (Composition API), Inertia.js, Tailwind CSS.
-- **Аутентифікація:** Laravel Breeze (Session-based via Sanctum/Inertia).
+- **Frontend:** Vue 3 (Composition API), Vue Router, Pinia, Tailwind CSS.
+- **Аутентифікація:** Laravel Sanctum (Token-based API).
 
 ## Реалізований функціонал
 - Реєстрація користувача з вибором ролі (`admin`, `member`).
