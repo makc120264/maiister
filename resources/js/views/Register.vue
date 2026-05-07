@@ -19,6 +19,13 @@
                     <label class="block mb-1">Confirm Password</label>
                     <input v-model="form.password_confirmation" type="password" class="w-full px-3 py-2 border rounded" required>
                 </div>
+                <div class="mt-4">
+                    <label class="block mb-1 font-medium text-gray-700">Role</label>
+                    <select v-model="form.role" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 bg-white" required>
+                        <option value="member">Member</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
                 <div v-if="Object.keys(errors).length > 0" class="text-red-500 text-sm">
                     <ul>
                         <li v-for="(errs, field) in errors" :key="field">
@@ -49,7 +56,8 @@ const form = ref({
     name: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    role: 'member'
 });
 const errors = ref({});
 const loading = ref(false);
