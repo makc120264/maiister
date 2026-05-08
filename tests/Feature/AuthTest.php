@@ -17,6 +17,7 @@ class AuthTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
+            'role' => 'admin',
         ]);
 
         $response->assertStatus(200)
@@ -28,7 +29,7 @@ class AuthTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' => 'test@example.com',
-            'role' => 'member',
+            'role' => 'admin',
         ]);
     }
 
@@ -41,10 +42,38 @@ class AuthTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
+            'role' => 'member',
         ]);
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['email']);
+    }
+
+    public function test_user_cannot_register_without_role(): void
+    {
+        $response = $this->postJson('/api/register', [
+            'name' => 'Test User',
+            'email' => 'test2@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['role']);
+    }
+
+    public function test_user_cannot_register_with_invalid_role(): void
+    {
+        $response = $this->postJson('/api/register', [
+            'name' => 'Test User',
+            'email' => 'test3@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'role' => 'superadmin',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['role']);
     }
 
     public function test_user_can_login(): void
